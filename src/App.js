@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+
 const api = {
-  key: "2d3414f7cd8b1ea1478db2630e6829de",
   base: "https://api.openweathermap.org/data/2.5/"
 }
 
@@ -10,13 +10,13 @@ function App() {
 
   const search = evt => {
     if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`)
         .then(res => res.json())
         .then(result => {
           setWeather(result);
           setQuery('');
           console.log(result);
-          });
+        });
     }
   }
 
@@ -29,7 +29,7 @@ function App() {
     let month = months[d.getMonth()];
     let year = d.getFullYear();
 
-    return `${day} ${date} ${month} ${year}`
+    return `${day} ${date} ${month} ${year}`;
   }
 
   return (
@@ -45,7 +45,7 @@ function App() {
             onKeyPress={search}
           />
         </div>
-        {typeof weather.main != "undefined" ? (
+        {typeof weather.main !== "undefined" ? (
         <div>
         <div className="location-box">
           <div className="location">{weather.name}, {weather.sys.country}</div>
