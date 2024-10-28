@@ -12,7 +12,7 @@ body {
   background-image: url('./assets/good-bg.png');
   background-size: cover;
   background-position: bottom;
-  transition: 0.4 ease-out;
+  transition: 0.4 ease;
 }
 
 .app.rain {
@@ -40,13 +40,63 @@ main {
   outline: none;
 
   background-color: blanchedalmond;
-  border-radius: 10px;
+  border-radius: 0px 0px 10px 10px;
   margin-top: -30px;
 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px rgba(0, 0, 0, 0.2);
 
   color:rgba(0, 0, 0, 0.2);
   font-size: 25px;
 
   transition: 0.4s ease;
+}
+
+.serch-box .search-bar:focus {
+  background-color: #333;
+}
+
+.location-box .location {
+  color: #FFF;
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 3px 3px #333 ( 0, 0, 0, 0.2);
+}
+
+.location-box .date {
+  color: #FFF;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: #333 0 0 2px;
+}
+
+.weather-box {
+  text-align: center;
+}
+
+.weather-box .temp {
+  position: relative;
+  display: inline-block;
+  margin: 30px auto;
+  background-color: #FFF(0, 0, 0, 0.2);
+  border-radius: 10px;
+
+  padding: 15px 25px;
+
+  color: #FFF;
+  font-size: 102px;
+  font-weight: 900;
+
+  text-shadow: #333 0 0 5px;
+  text-align: center;
+  box-shadow: #333 0 5px 15px;
+}
+
+.weather-box .weather {
+  color: #FFF;
+  font-size: 60px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: #333 0 0 5px;
 }
