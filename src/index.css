@@ -15,8 +15,32 @@ body {
   transition: 0.4 ease;
 }
 
+.app.clear {
+  background-image: url('./assets/good-bg.png');
+}
+
+.app.cloud {
+  background-image: url('./assets/cloud-bg.png');
+}
+
+.app.heavy-rain {
+  background-image: url('./assets/heavy-rain-bg.png');
+}
+
+.app.mist {
+  background-image: url('./assets/mist-bg.png');
+}
+
 .app.rain {
   background-image: url('./assets/rain-bg.png');
+}
+
+.app.snow {
+  background-image: url('./assets/snow-bg.png');
+}
+
+.app.thunder {
+  background-image: url('./assets/thunder-bg.png');
 }
 
 main {
