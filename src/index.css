@@ -12,19 +12,21 @@ body {
   background-image: url('./assets/good-bg.png');
   background-size: cover;
   background-position: bottom;
-  transition: 0.4 ease;
+  height: 100vh;
+  width: 100%;
+  transition: background-image 0.5 ease;
 }
 
 .app.clear {
   background-image: url('./assets/good-bg.png');
 }
 
-.app.cloud {
-  background-image: url('./assets/cloud-bg.png');
+.app.clouds {
+  background-image: url('./assets/clouds-bg.png');
 }
 
-.app.heavy-rain {
-  background-image: url('./assets/heavy-rain-bg.png');
+.app.drizzle {
+  background-image: url('./assets/drizzle-bg.png');
 }
 
 .app.mist {
@@ -39,8 +41,8 @@ body {
   background-image: url('./assets/snow-bg.png');
 }
 
-.app.thunder {
-  background-image: url('./assets/thunder-bg.png');
+.app.thunderstorm {
+  background-image: url('./assets/thunderstorm-bg.png');
 }
 
 main {
