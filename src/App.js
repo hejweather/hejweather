@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
+import clearBg from './assets/clear-bg.png';
+import cloudBg from './assets/clouds-bg.png';
+import drizzleBg from './assets/drizzle-bg.png';
+import mistBg from './assets/mist-bg.png';
+import rainBg from './assets/rain-bg.png';
+import snowBg from './assets/snow-bg.png';
+import thunderstormBg from './assets/thunderstorm-bg.png';
 
 const api = {
   base: "https://api.openweathermap.org/data/2.5/"
 }
+
+const backgroundImages = {
+  Clear: clearBg,
+  Clouds: cloudBg,
+  Drizzle: drizzleBg,
+  Mist: mistBg,
+  Rain: rainBg,
+  Snow: snowBg,
+  Thunderstorm: thunderstormBg
+};
 
 function App() {
   const [query, setQuery] = useState('');
@@ -32,8 +49,17 @@ function App() {
     return `${day} ${date} ${month} ${year}`;
   }
 
+  const backgroundImage = {
+    backgroundImage: weather.weather
+    ? `url(${backgroundImages[weather.weather[0].main || clearBg]})`
+    : `url(${clearBg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "bottom",
+    height: "100vh"
+  };
+
   return (
-    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 10) ? 'app clouds' : 'app') : 'app'}>
+    <div className="app" style={backgroundImage}>
       <main>
         <div className="search-box">
           <input 
