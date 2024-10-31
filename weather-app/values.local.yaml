@@ -1,0 +1,16 @@
+replicaCount: 1
+
+# Docker image configuration for local environment
+image:
+  repository: "weather-app"  # Refers to the local image you tagged with `weather-app:local`
+  tag: "local"
+
+# Kubernetes Secret reference (local and cloud use the same secret name for simplicity)
+secretName: "weather-app-secrets"
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30007  # External port for local access
+
