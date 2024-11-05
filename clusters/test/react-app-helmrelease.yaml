@@ -16,3 +16,7 @@ spec:
     image:
       repository: ghcr.io/Pjakobsson/hejweather
       tag: latest
+  valuesFrom:
+    - kind: ConfigMap
+      name: react-app-values
+      valuesKey: values.cloud.yaml
