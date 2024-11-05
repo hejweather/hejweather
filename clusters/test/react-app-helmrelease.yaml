@@ -7,7 +7,7 @@ spec:
   interval: 5m0s
   chart:
     spec:
-      chart: ./weather-app               
+      chart: ./weather-app/charts/                
       sourceRef:
         kind: GitRepository
         name: hejweather
