@@ -4,9 +4,9 @@ replicaCount: 3
 
 # Docker image configuration for cloud environment
 image:
-  repository: "ghcr.io/Pjakobsson/weather-app"  # Replace with your actual GitHub Container Registry path
+  repository: "ghcr.io/Pjakobsson/hejweather"  # Replace with your actual GitHub Container Registry path
   tag: "latest"
 
 
 # Kubernetes Secret reference
-secretName: "weather-app-secrets"
+secretName: "react-app-secrets"

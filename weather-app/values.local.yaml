@@ -6,7 +6,7 @@ image:
   tag: "local"
 
 # Kubernetes Secret reference (local and cloud use the same secret name for simplicity)
-secretName: "weather-app-secrets"
+secretName: "react-app-secrets"
 
 service:
   type: NodePort

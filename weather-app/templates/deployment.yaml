@@ -15,10 +15,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          env:
-            - name: REACT_APP_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: REACT_APP_WEATHER_API_KEY
-            
+          envFrom:
+            - secretRef:
+                name: react-app-secrets
+                    
