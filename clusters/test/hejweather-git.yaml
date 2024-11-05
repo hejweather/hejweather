@@ -8,3 +8,5 @@ spec:
   url: https://github.com/hejweather/hejweather.git
   ref:
     branch: master
+  secretRef:
+    name: flux-system 
