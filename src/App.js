@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import clearBg from './assets/clear-bg.png';
 import cloudBg from './assets/clouds-bg.png';
 import drizzleBg from './assets/drizzle-bg.png';
@@ -26,6 +26,24 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
   const [location, setLocation] = useState({});
+
+  const fetchLocation = async () => {
+    try {
+      const response = await fetch(`${api.ipstackBase}check?access_key=${process.env.REACT_APP_IPSTACK_API_KEY}&fields=city`);
+      const data = await response.json();
+      setLocation(data);
+      // Write out the location data
+      console.log("Location data:" ,data);
+    }
+    catch (error) {
+      console.error("Error fetching location data: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocation();
+  }, []); // Fetch location on component mount
+
 
   const search = evt => {
     if (evt.key === "Enter") {
