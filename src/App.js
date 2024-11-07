@@ -7,11 +7,13 @@ import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
 
+// API urls
 const api = {
   weatherBase: "https://api.openweathermap.org/data/2.5/" ,
   ipstackBase: "http://api.ipstack.com/"
 };
 
+// Background images for different weather conditions
 const backgroundImages = {
   Clear: clearBg,
   Clouds: cloudBg,
@@ -25,26 +27,35 @@ const backgroundImages = {
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-  const [location, setLocation] = useState({});
-
-  const fetchLocation = async () => {
-    try {
-      const response = await fetch(`${api.ipstackBase}check?access_key=${process.env.REACT_APP_IPSTACK_API_KEY}&fields=city`);
-      const data = await response.json();
-      setLocation(data);
-      // Write out the location data
-      console.log("Location data:" ,data);
-    }
-    catch (error) {
-      console.error("Error fetching location data: ", error);
-    }
-  };
+  const [city, setCity] = useState(null);
 
   useEffect(() => {
-    fetchLocation();
-  }, []); // Fetch location on component mount
+    const fetchCity = async () => {
+      try {
+        // Fetching the users ip address
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const visitorIP = ipData.ip;
+        console.log(visitorIP);
 
+        // Fetching city data from visitors ip address
+        const cityResponse = await fetch(`https://ipinfo.io/'${visitorIP}/json/`);
+        const cityData = await cityResponse.json();
+        console.log(cityData);
 
+        // Set city name to state
+        setCity(cityData.city);
+      } catch (error) {
+        // If error occurs, set city to null
+        setCity(null);
+        console.error(error);
+      }
+    };
+
+    fetchCity();
+  }, []); // Empty array to only run once
+
+  // Search weather function
   const search = evt => {
     if (evt.key === "Enter") {
       fetch(`${api.weatherBase}weather?q=${query}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`)
@@ -56,6 +67,7 @@ function App() {
     }
   }
 
+  // Date builder function getting todays date
   const dateBuilder = (d) => {
     let months = ["January", "February", "Mars", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
