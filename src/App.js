@@ -29,32 +29,6 @@ function App() {
   const [weather, setWeather] = useState({});
   const [city, setCity] = useState(null);
 
-  useEffect(() => {
-    const fetchCity = async () => {
-      try {
-        // Fetching the users ip address
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const visitorIP = ipData.ip;
-        console.log(visitorIP);
-
-        // Fetching city data from visitors ip address
-        const cityResponse = await fetch(`https://ipinfo.io/'${visitorIP}/json/`);
-        const cityData = await cityResponse.json();
-        console.log(cityData);
-
-        // Set city name to state
-        setCity(cityData.city);
-      } catch (error) {
-        // If error occurs, set city to null
-        setCity(null);
-        console.error(error);
-      }
-    };
-
-    fetchCity();
-  }, []); // Empty array to only run once
-
   // Search weather function
   const search = evt => {
     if (evt.key === "Enter") {
