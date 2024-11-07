@@ -1,4 +1,7 @@
-import React, { useState , useEffect } from 'react';
+// src/App.js
+
+import React, { useState } from 'react';
+import axios from 'axios';
 import clearBg from './assets/clear-bg.png';
 import cloudBg from './assets/clouds-bg.png';
 import drizzleBg from './assets/drizzle-bg.png';
@@ -7,13 +10,12 @@ import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
 
-// API urls
+// API URLs and API keys
 const api = {
-  weatherBase: "https://api.openweathermap.org/data/2.5/" ,
-  ipstackBase: "http://api.ipstack.com/"
+  weatherBase: "https://api.openweathermap.org/data/2.5/",
 };
+const OPENAI_API_KEY = process.env.REACT_APP_CHATGPT_API_KEY;
 
-// Background images for different weather conditions
 const backgroundImages = {
   Clear: clearBg,
   Clouds: cloudBg,
@@ -27,23 +29,40 @@ const backgroundImages = {
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-  const [city, setCity] = useState(null);
-
+  const [recommendation, setRecommendation] = useState(''); // For OpenAI response
+  
   // Search weather function
-  const search = evt => {
+  const search = async (evt) => {
     if (evt.key === "Enter") {
-      fetch(`${api.weatherBase}weather?q=${query}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`)
-        .then(res => res.json())
-        .then(result => {
-          setWeather(result);
-          setQuery('');
+      try {
+        const weatherResponse = await fetch(`${api.weatherBase}weather?q=${query}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`);
+        const weatherData = await weatherResponse.json();
+        setWeather(weatherData);
+        setQuery('');
+        
+        // Call OpenAI API with weather data to get recommendation
+        const prompt = `Give me a two-sentence recommendation on what to wear and something fun to do if the weather is ${weatherData.main.temp}°C and ${weatherData.weather[0].description}. keep it positive!`;
+        const openAIResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
+          model: 'gpt-3.5-turbo',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 60,  // Limiting tokens to keep the response brief
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          }
         });
+        
+        setRecommendation(openAIResponse.data.choices[0].message.content); // Set the recommendation text
+      } catch (error) {
+        console.error("Error fetching weather or OpenAI response:", error);
+      }
     }
-  }
+  };
 
-  // Date builder function getting todays date
+  // Date builder function
   const dateBuilder = (d) => {
-    let months = ["January", "February", "Mars", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     let day = days[d.getDay()];
@@ -52,12 +71,12 @@ function App() {
     let year = d.getFullYear();
 
     return `${day} ${date} ${month} ${year}`;
-  }
+  };
 
   const backgroundImage = {
     backgroundImage: weather.weather
-    ? `url(${backgroundImages[weather.weather[0].main || clearBg]})`
-    : `url(${clearBg})`,
+      ? `url(${backgroundImages[weather.weather[0].main || 'Clear']})`
+      : `url(${clearBg})`,
     backgroundSize: "cover",
     backgroundPosition: "bottom",
     height: "100vh"
@@ -76,20 +95,28 @@ function App() {
             onKeyPress={search}
           />
         </div>
+        
         {typeof weather.main !== "undefined" ? (
-        <div>
-        <div className="location-box">
-          <div className="location">{weather.name}, {weather.sys.country}</div>
-          <div className="date">{dateBuilder(new Date())}</div>
-        </div>
-        <div className="weather-box">
-          <div className="temp">
-            {Math.round(weather.main.temp)}°c
+          <div>
+            <div className="location-box">
+              <div className="location">{weather.name}, {weather.sys.country}</div>
+              <div className="date">{dateBuilder(new Date())}</div>
+            </div>
+            <div className="weather-box">
+              <div className="temp">
+                {Math.round(weather.main.temp)}°c
+              </div>
+              <div className="weather">{weather.weather[0].main}</div>
+            </div>
           </div>
-          <div className="weather">{weather.weather[0].main}</div>
-        </div>
-        </div>
         ) : ('')}
+        
+        {recommendation && (
+          <div className="recommendation-box">
+            <h3>Recommendation</h3>
+            <p>{recommendation}</p>
+          </div>
+        )}
       </main>
     </div>
   );
