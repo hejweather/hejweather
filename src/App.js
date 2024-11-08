@@ -42,7 +42,7 @@ function App() {
         
         // Call OpenAI API with weather data to get recommendation
         const roundedTemp = Math.round(weatherData.main.temp);
-        const prompt = `Give me a two-sentence recommendation on what to wear and something fun to do if the weather is ${roundedTemp}°C and ${weatherData.weather[0].description}. keep it positive!=)`;
+        const prompt = `Give me a two-sentence recommendation on what to wear and something fun to do if the weather is ${roundedTemp}°C and ${weatherData.weather[0].description}. keep it positive!=)(use only whole degrees if you mention it, round up or down)`;
         const openAIResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
           model: 'gpt-3.5-turbo',
           messages: [{ role: 'user', content: prompt }],
