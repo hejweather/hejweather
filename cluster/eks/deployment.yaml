@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: ghcr.io/hejweather/hejweatherapp:latest  # Reference to use in combination with the ImagePolicy
+          image: ghcr.io/hejweather/hejweatherapp:401135899d90f7cd42a4780705ae456ea47b4aed  # Reference to use in combination with the ImagePolicy
           imagePullPolicy: Always
           resources:
             limits:
