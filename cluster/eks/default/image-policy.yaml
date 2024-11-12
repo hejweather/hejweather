@@ -7,5 +7,5 @@ spec:
   imageRepositoryRef:
     name: weather-app-image
   policy:
-    tag:
-      pattern: "latest"
+    semver:
+      range: "*"
