@@ -17,3 +17,10 @@ spec:
         - name: weather-app
           image: ghcr.io/hejweather/hejweatherapp:latest  # Reference to use in combination with the ImagePolicy
           imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
