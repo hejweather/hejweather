@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
   name: weather-app-image
-  namespace: flux-system
+  namespace: default
 spec:
   interval: 1m
   image: ghcr.io/hejweather/hejweatherapp   # Update with your actual image path
