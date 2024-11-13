@@ -20,6 +20,7 @@ const backgroundImages = {
   Clear: clearBg,
   Clouds: cloudBg,
   Drizzle: drizzleBg,
+  Fog: mistBg,
   Mist: mistBg,
   Rain: rainBg,
   Snow: snowBg,
