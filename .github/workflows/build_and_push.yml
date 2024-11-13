@@ -6,6 +6,7 @@ on:
       - fluxtest
     paths:
       - 'src/**'  # Adjusted to your app's directory
+      - 'cluster/**'
   workflow_dispatch:
 
 jobs:
