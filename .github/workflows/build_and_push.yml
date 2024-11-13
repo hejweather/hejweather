@@ -37,3 +37,15 @@ jobs:
 
           docker push ghcr.io/hejweather/hejweatherapp:${{ github.sha }}
           docker push ghcr.io/hejweather/hejweatherapp:latest
+      
+      - name: Update deployment
+        run: |
+          sed -i "s|ghcr.io/hejweather/hejweatherapp:.*|ghcr.io/hejweather/hejweatherapp:${{ github.sha }}|" cluster/eks/deployment.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+          git add cluster/eks/deployment.yaml
+          git commit -m "Update deployment image to ${{ github.sha }}"
+          git push
