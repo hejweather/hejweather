@@ -3,9 +3,10 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master
+      - fluxtest
     paths:
       - 'src/**'  # Adjusted to your app's directory
+      - 'cluster/**'
   workflow_dispatch:
 
 jobs:
@@ -32,11 +33,9 @@ jobs:
             --build-arg REACT_APP_WEATHER_API_KEY=${{ secrets.REACT_APP_WEATHER_API_KEY }} \
             --build-arg REACT_APP_IPSTACK_KEY=${{ secrets.REACT_APP_IPSTACK_KEY }} \
             --build-arg REACT_APP_CHATGPT_API_KEY=${{ secrets.REACT_APP_CHATGPT_API_KEY }} \
-            -t ghcr.io/hejweather/hejweatherapp:${{ github.sha }} \
-            -t ghcr.io/hejweather/hejweatherapp:latest .
+            -t ghcr.io/hejweather/hejweatherapp:${{ github.sha }} .
 
           docker push ghcr.io/hejweather/hejweatherapp:${{ github.sha }}
-          docker push ghcr.io/hejweather/hejweatherapp:latest
       
       - name: Update deployment
         run: |
