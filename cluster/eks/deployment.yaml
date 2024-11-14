@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: ghcr.io/hejweather/hejweatherapp:d2d027c34e47ba61657da077e429a7b1f77b4529
+          image: ghcr.io/hejweather/hejweatherapp:7c255739910a5ff1c863311a5e3c9196666b0cd2
           imagePullPolicy: Always
           resources:
             limits:
