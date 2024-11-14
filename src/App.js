@@ -9,6 +9,7 @@ import mistBg from './assets/mist-bg.png';
 import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
+import arrowIcon from './assets/arrow-icon.png'; 
 
 // API URLs and API keys
 const api = {
@@ -110,6 +111,16 @@ function App() {
                 {Math.round(weather.main.temp)}°c
               </div>
               <div className="weather">{weather.weather[0].main}</div>
+            </div>
+            <div className="wind-box">
+              <div className="wind-speed">Wind Speed: {Math.round(weather.wind.speed)} m/s</div>
+              <div className="wind-direction">
+                <img src={arrowIcon}
+                alt="Wind direction"
+                style={{ transform: `rotate(${weather.wind.deg}deg)` }}
+                />
+                <span>{weather.wind.deg}°</span>
+              </div>
             </div>
           </div>
         ) : ('')}
