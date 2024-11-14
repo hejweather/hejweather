@@ -10,6 +10,7 @@ import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
 import arrowIcon from './assets/arrow-icon.png'; 
+import logo from './assets/logo.png';
 
 // API URLs and API keys
 const api = {
@@ -56,8 +57,8 @@ function App() {
             'Authorization': `Bearer ${OPENAI_API_KEY}`,
           }
         });
-        
-        setRecommendation(openAIResponse.data.choices[0].message.content); // Set the recommendation text
+        // Set the recommendation text
+        setRecommendation(openAIResponse.data.choices[0].message.content);
       } catch (error) {
         console.error("Error fetching weather or OpenAI response:", error);
       }
@@ -77,6 +78,7 @@ function App() {
     return `${day} ${date} ${month} ${year}`;
   };
 
+  // Background image based on weather
   const backgroundImage = {
     backgroundImage: weather.weather
       ? `url(${backgroundImages[weather.weather[0].main || 'Clear']})`
@@ -86,8 +88,12 @@ function App() {
     height: "100vh"
   };
 
+  // Weather data and gpt recommendation
   return (
     <div className="app" style={backgroundImage}>
+      <header className="header">
+        <h1>Hey<img src={logo} alt="Weather App Logo" className="logo" />!</h1>
+      </header>
       <main>
         <div className="search-box">
           <input 
@@ -129,7 +135,7 @@ function App() {
             </div>
           </div>
         ) : ('')}
-        
+
         {recommendation && (
           <div className="recommendation-box">
             <h3>Recommendation</h3>
