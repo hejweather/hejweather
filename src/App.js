@@ -113,13 +113,14 @@ function App() {
               <div className="weather">{weather.weather[0].main}</div>
             </div>
             <div className="wind-box">
-              <div className="wind-speed">Wind Speed: {Math.round(weather.wind.speed)} m/s</div>
+              <div className="wind-speed">Wind: {Math.round(weather.wind.speed)} m/s
               <div className="wind-direction">
                 <img src={arrowIcon}
                 alt="Wind direction"
                 style={{ transform: `rotate(${weather.wind.deg}deg)` }}
+                className="wind-icon"
                 />
-                <span>{weather.wind.deg}°</span>
+              </div>
               </div>
             </div>
           </div>
