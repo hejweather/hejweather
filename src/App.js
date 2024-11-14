@@ -116,7 +116,7 @@ function App() {
               <div className="wind-speed-and-direction">
                 <span className="wind-speed">
                   {Math.round(weather.wind.speed)} m/s
-                  {weather.wind.gust && ` ( ${Math.round(weather.wind.gust)} m/s )`}
+                  {weather.wind.gust >10 && ` (${Math.round(weather.wind.gust)} m/s)`}
                 </span>
                   <div className="wind-direction">
                     <img src={arrowIcon}
