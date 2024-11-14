@@ -43,7 +43,7 @@ function App() {
         
         // Call OpenAI API with weather data to get recommendation
         const roundedTemp = Math.round(weatherData.main.temp);
-        const prompt = ` svara som björn ranelid, max 2 meningar, vad kan man göra när det är ${roundedTemp}°C and ${weatherData.weather[0].description}. =) `;
+        const prompt = ` answer in english, max 2 meningar, vad kan man göra när det är ${roundedTemp}°C and ${weatherData.weather[0].description}. =) `;
         const openAIResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
           model: 'gpt-3.5-turbo',
           messages: [{ role: 'user', content: prompt }],
