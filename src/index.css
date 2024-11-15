@@ -6,20 +6,27 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
 }
 
 .app {
   background-image: url('./assets/clear-bg.png');
   background-size: cover;
   background-position: bottom;
-  height: 100vh;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  height: auto;
   width: 100%;
-  transition: background-image 0.5 ease;
+  transition: background-image 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 main {
   min-height: 100vh;
   padding: 25px;
+  margin: 0;
 }
 
 .search-box {

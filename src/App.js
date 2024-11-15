@@ -10,7 +10,6 @@ import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
 import arrowIcon from './assets/arrow-icon.png'; 
-import logo from './assets/logo.png';
 import hejweatherlogo from './assets/hejweathertransparent.png';
 
 // API URLs and API keys
