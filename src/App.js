@@ -93,7 +93,7 @@ function App() {
   return (
     <div className="app" style={backgroundImage}>
       <header className="header">
-        <h1>Hey<img src={logo} alt="Weather App Logo" className="logo" />!</h1>
+        <img src={hejweatherlogo} alt="Weather App Logo" className="logo" />
       </header>
       <main>
         <div className="search-box">
