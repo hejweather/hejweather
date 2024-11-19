@@ -47,6 +47,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions@github.com"
-          git add cluster/eks/deployment.yaml
+          git add cluster/aks/deployment.yaml
           git commit -m "Update deployment image to ${{ github.sha }}"
           git push
