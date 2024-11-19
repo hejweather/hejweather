@@ -34,7 +34,7 @@ jobs:
             --build-arg REACT_APP_IPSTACK_KEY=${{ secrets.REACT_APP_IPSTACK_KEY }} \
             --build-arg REACT_APP_CHATGPT_API_KEY=${{ secrets.REACT_APP_CHATGPT_API_KEY }} \
             -t ghcr.io/hejweather/hejweatherapp:${{ github.sha }} \
-            -t ghcr.io/hejweather/hejweatherapp:latest \
+            -t ghcr.io/hejweather/hejweatherapp:latest .
             
 
           docker push ghcr.io/hejweather/hejweatherapp:${{ github.sha }}
