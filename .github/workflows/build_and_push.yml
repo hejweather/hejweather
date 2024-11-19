@@ -5,7 +5,8 @@ on:
     branches:
       - master
     paths:
-      - 'src/**'  # Adjusted to your app's directory
+      - 'src/**'  
+      - 'cluster/**'  
   workflow_dispatch:
 
 jobs:
