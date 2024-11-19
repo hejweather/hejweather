@@ -41,7 +41,7 @@ jobs:
       
       - name: Update deployment
         run: |
-          sed -i "s|ghcr.io/hejweather/hejweatherapp:.*|ghcr.io/hejweather/hejweatherapp:${{ github.sha }}|" cluster/eks/deployment.yaml
+          sed -i "s|ghcr.io/hejweather/hejweatherapp:.*|ghcr.io/hejweather/hejweatherapp:${{ github.sha }}|" cluster/aks/deployment.yaml
 
       - name: Commit and push changes
         run: |
