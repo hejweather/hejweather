@@ -9,6 +9,8 @@ import mistBg from './assets/mist-bg.png';
 import rainBg from './assets/rain-bg.png';
 import snowBg from './assets/snow-bg.png';
 import thunderstormBg from './assets/thunderstorm-bg.png';
+import arrowIcon from './assets/arrow-icon.png'; 
+import hejweatherlogo from './assets/hejweathertransparent.png';
 
 // API URLs and API keys
 const api = {
@@ -55,8 +57,8 @@ function App() {
             'Authorization': `Bearer ${OPENAI_API_KEY}`,
           }
         });
-        
-        setRecommendation(openAIResponse.data.choices[0].message.content); // Set the recommendation text
+        // Set the recommendation text
+        setRecommendation(openAIResponse.data.choices[0].message.content);
       } catch (error) {
         console.error("Error fetching weather or OpenAI response:", error);
       }
@@ -76,6 +78,7 @@ function App() {
     return `${day} ${date} ${month} ${year}`;
   };
 
+  // Background image based on weather
   const backgroundImage = {
     backgroundImage: weather.weather
       ? `url(${backgroundImages[weather.weather[0].main || 'Clear']})`
@@ -85,8 +88,12 @@ function App() {
     height: "100vh"
   };
 
+  // Weather data and gpt recommendation
   return (
     <div className="app" style={backgroundImage}>
+      <header className="header">
+        <img src={hejweatherlogo} alt="Weather App Logo" className="logo" />
+      </header>
       <main>
         <div className="search-box">
           <input 
@@ -111,9 +118,24 @@ function App() {
               </div>
               <div className="weather">{weather.weather[0].main}</div>
             </div>
+            <div className="wind-box">
+              <div className="wind-speed-and-direction">
+                <span className="wind-speed">
+                  {Math.round(weather.wind.speed)} m/s
+                  {weather.wind.gust >10 && ` (${Math.round(weather.wind.gust)} m/s)`}
+                </span>
+                  <div className="wind-direction">
+                    <img src={arrowIcon}
+                      alt="Wind direction"
+                      style={{ transform: `rotate(${weather.wind.deg + 90}deg)` }}
+                      className="wind-icon"
+                    />
+                  </div>
+              </div>
+            </div>
           </div>
         ) : ('')}
-        
+
         {recommendation && (
           <div className="recommendation-box">
             <h3>Recommendation</h3>
