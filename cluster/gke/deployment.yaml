@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: ghcr.io/hejweather/hejweatherapp:e7819b89a27601dc0b3ff0d220d143fee0e8d048
-          ports:
-            - containerPort: 80
+          image: ghcr.io/hejweather/hejweatherapp:d292b5a4761bffdee9231b054b7e5b25aaad7641
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -26,15 +24,3 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "250m"
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 15
