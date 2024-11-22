@@ -4,11 +4,10 @@ metadata:
   name: weather-app-ingress
   namespace: flux-system
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: / # Required for path rewrites
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: "*"
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
