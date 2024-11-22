@@ -4,12 +4,10 @@ metadata:
   name: weather-app
   namespace: flux-system
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Cluster
+  type: ClusterIP
   selector:
     app: weather-app
   ports:
     - port: 80
       targetPort: 80
       protocol: TCP
-  
