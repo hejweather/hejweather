@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: weather-app
-  namespace: flux-system 
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: ghcr.io/hejweather/hejweatherapp:e7819b89a27601dc0b3ff0d220d143fee0e8d048
+          image: ghcr.io/hejweather/hejweatherapp:0dad162a81650de346ee598c38ce888755b4dd84
           imagePullPolicy: IfNotPresent
           resources:
             limits:
