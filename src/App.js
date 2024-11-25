@@ -91,7 +91,7 @@ function App() {
   // Weather data and gpt recommendation
   return (
     <div className="app" style={backgroundImage}>
-      <header>
+      <header className="header">
         <img src={hejweatherlogo} alt="Hej Weather Logo" className="hejweatherlogo" />
       </header>
       <main>
