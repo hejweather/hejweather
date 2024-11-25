@@ -91,19 +91,19 @@ function App() {
   // Weather data and gpt recommendation
   return (
     <div className="app" style={backgroundImage}>
-      <header className="header">
-        <img src={hejweatherlogo} alt="Weather App Logo" className="logo" />
+      <header>
+        <img src={hejweatherlogo} alt="Hej Weather Logo" className="hejweatherlogo" />
       </header>
       <main>
         <div className="search-box">
-          <input 
-            type="text"
-            className="search-bar"
-            placeholder="Search..."
-            onChange={e => setQuery(e.target.value)}
-            value={query}
-            onKeyPress={search}
-          />
+            <input 
+              type="text"
+              className="search-bar"
+              placeholder="Search..."
+              onChange={e => setQuery(e.target.value)}
+              value={query}
+              onKeyPress={search}
+            />
         </div>
         
         {typeof weather.main !== "undefined" ? (
