@@ -34,8 +34,6 @@ jobs:
             --build-arg REACT_APP_CHATGPT_API_KEY=${{ secrets.REACT_APP_CHATGPT_API_KEY }} \
             -t ghcr.io/hejweather/hejweatherapp:${{ github.sha }} .
             
-            
-
           docker push ghcr.io/hejweather/hejweatherapp:${{ github.sha }}
           
           
