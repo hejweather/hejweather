@@ -7,6 +7,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
+  overflow-y: auto;
 }
 
 .app {
@@ -20,18 +21,29 @@ body {
   transition: background-image 0.5s ease;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
 }
 
 main {
-  min-height: 100vh;
-  padding: 25px;
-  margin: 0;
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-box {
   width: 100%;
-  margin: 30px 0px 75px;
+  margin: 5% 0px 75px;
 }
 
 .search-box .search-bar {
@@ -46,12 +58,11 @@ main {
 
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
-  margin-top: -30px;
 
   box-shadow: 0 5px rgba(0, 0, 0, 0.5);
 
   color: #333;
-  font-size: 25px;
+  font-size: 1.5rem;
 
   transition: 0.4s ease;
 }
@@ -60,17 +71,20 @@ main {
   background-color: rgba(255, 255, 255, 0.90);
 }
 
+.location-box {
+  text-align: center;
+}
+
 .location-box .location {
   color: #333;
-  font-size: 30px;
-  font-weight: 500;
-  text-align: center;
-  text-shadow: 3px 3px #333 ( 0, 0, 0, 0.5);
+  font-size: 3rem;
+  font-weight: 300;
+  text-shadow: 5px 5px #333 ( 0, 0, 0, 0.5);
 }
 
 .location-box .date {
   color: #333;
-  font-size: 20px;
+  font-size: 1.3rem;
   font-weight: 300;
   text-align: center;
   text-shadow: 5px 5px #333 (100, 100, 100, 0.5);
@@ -81,34 +95,26 @@ main {
 }
 
 .weather-box .temp {
-  position: relative;
-  display: inline-block;
-  margin: 30px auto;
-  background-color: #363636(0, 0, 0, 0.5);
+  background-color: #363636(54, 54, 54, 0.5);
   border-radius: 10px;
-
   padding: 15px 25px;
-
   color: #333;
-  font-size: 100px;
+  font-size: 5rem;
   font-weight: 900;
-
   text-shadow: 5px 10px #333 (0, 0, 0, 0.5);
-  text-align: center;
   box-shadow: 5px 10px #333 (0, 0, 0, 0.5);
 }
 
 .weather-box .weather {
   color: #333;
-  font-size: 60px;
+  font-size: 3rem;
   font-weight: 500;
-  text-align: center;
   text-shadow: 5px 5px #333 (0, 0, 0, 0.5);
 }
 
 .recommendation-box {
   color: #333;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 300;
   text-align: center;
   text-shadow: 5px 5px #333 (0, 0, 0, 0.5);
@@ -149,7 +155,7 @@ main {
 
 .wind-speed {
   color: #333;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 300;
   text-align: center;
   text-shadow: 2px 5px 5px #333 (0, 0, 0, 0.5);
@@ -158,7 +164,7 @@ main {
 
 .wind-direction {
   color: #333;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 300;
   text-align: center;
   text-shadow: 5px 5px #333 (0, 0, 0, 0.5);
@@ -171,21 +177,28 @@ main {
   transition: transform 0.5s ease;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  color: #333;
-  text-shadow: 5px 5px #333 (0, 0, 0, 0.5);
+.hejweatherlogo {
+  width: 30%;
+  height: auto;
+  max-width: 400px;
 }
 
-.logo {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
+/* Media Queries for Small Devices */
+@media (max-width: 600px) {
+  .search-box .search-bar {
+    font-size: 1.2rem; /* Smaller font size on small devices */
+  }
+  .location-box .location {
+    font-size: 1.5rem; /* Smaller font size on small devices */
+  }
+  .weather-box .temp {
+    font-size: 4rem; /* Smaller font size on small devices */
+  }
+  .weather-box .weather {
+    font-size: 2.5rem; /* Smaller font size on small devices */
+  }
+  .recommendation-box {
+    font-size: 1rem; /* Smaller font size on small devices */
+  }
 }
 
