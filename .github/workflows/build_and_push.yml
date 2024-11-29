@@ -35,8 +35,6 @@ jobs:
             
           docker push ghcr.io/hejweather/hejweatherapp:${{ github.sha }}
           
-          
-      
       - name: Update deployment
         run: |
           sed -i "s|ghcr.io/hejweather/hejweatherapp:.*|ghcr.io/hejweather/hejweatherapp:${{ github.sha }}|" cluster/gke/deployment.yaml
