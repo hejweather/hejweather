@@ -53,16 +53,16 @@ REACT_APP_CHATGPT_API_KEY=<din_openai_api_nyckel>
 
    ALternativt kör lokalt med docker:
    ```bash
-   docker run -d --restart=always -p 8080:80 ghcr.io/hejweather/hejweatherapp:2617105056e119a5b627a557923050b1b593a75a
+   docker run -d --restart=always -p 3000:80 ghcr.io/hejweather/hejweatherapp:2617105056e119a5b627a557923050b1b593a75a
    c24fb5888c39a68a0973691fb3a811f5305414a9c42d43f5be99eb1ff5242920
    ```
-2. Besök applikationen på `http://localhost:3000`.
+2. Besök applikationen på `http://localhost:3000` 
 
 ---
 
 ## Deployment i Kubernetes
 
-### 1. Skapa Docker-image
+### 1. Skapa Docker-image (om du inte ska använda workflow) 
 Bygg och push Docker-image till GitHub Container Registry:
 ```bash
 docker build -t ghcr.io/<dittrepo/dinapp>:latest .
