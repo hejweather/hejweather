@@ -13,11 +13,11 @@ Hey Weather är en vädertjänst byggd med React som visar aktuellt väder, reko
 
 ## Systemkrav
 
-### Lokalt utvecklingsmiljö:
-- Node.js (minst v14)
-- Docker (minst v20.10)
-- Kubernetes (minst v1.25) med kubectl installerat
-- FluxCD CLI (minst v2.0.0)
+### Lokal utvecklingsmiljö:
+- Node.js
+- Docker 
+- Kubernetes med kubectl installerat
+- FluxCD CLI 
 - En GitHub Personal Access Token (PAT) med admin-rättigheter
 - OpenWeather API-nyckel
 - OpenAI API-nyckel
@@ -50,6 +50,12 @@ REACT_APP_CHATGPT_API_KEY=<din_openai_api_nyckel>
    npm install
    npm start
    ```
+
+   ALternativt kör lokalt med docker:
+   ```bash
+   docker run -d --restart=always -p 8080:80 ghcr.io/hejweather/hejweatherapp:2617105056e119a5b627a557923050b1b593a75a
+   c24fb5888c39a68a0973691fb3a811f5305414a9c42d43f5be99eb1ff5242920
+   ```
 2. Besök applikationen på `http://localhost:3000`.
 
 ---
@@ -63,13 +69,17 @@ docker build -t ghcr.io/<dittrepo/dinapp>:latest .
 docker push ghcr.io/<dittrepo/dinapp>:latest
 ```
 
-### 2. Skapa Kubernetes-manifester
+### 2. Skapa Kubernetes-manifest
 Använd filerna i mappen `cluster/` för att konfigurera deployment och service:
 - `kustomization.yaml`
 - `deployment.yaml`
 - `service.yaml`
 
-### 3. Installera FluxCD
+### 3. Ändra workflow och lägg till github secrets
+- Ändra alla namn och repositories i workflow-filen
+- Lägg till Github secrets för token och miljövariablerna från din `.env`-fil.
+- 
+### 4. Installera FluxCD
 Bootstrap FluxCD i ditt kluster:
 ```bash
 flux bootstrap github \
@@ -80,7 +90,7 @@ flux bootstrap github \
   --personal
 ```
 
-### 4. Synkronisera och verifiera
+### 5. Synkronisera och verifiera
 Verifiera att Flux har synkroniserat konfigurationen:
 ```bash
 kubectl get pods -n flux-system
@@ -95,6 +105,7 @@ Projektet använder GitHub Actions för CI och FluxCD för CD:
 1. Push av kod till `main`-branchen triggar en GitHub Actions workflow som:
    - Bygger en ny Docker-image.
    - Pushar imagen till GitHub Container Registry (GHCR).
+   - Uppdaterar tag för applikationen i deployment
 2. FluxCD övervakar repot för ändringar och uppdaterar Kubernetes-klustret med nya deployment-konfigurationer.
 
 ---
