@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# Hey Weather
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hey Weather är en vädertjänst byggd med React som visar aktuellt väder, rekommenderar aktiviteter och klädsel baserat på väderdata, samt anpassar bakgrunden dynamiskt efter vädret. Projektet använder modern CI/CD och distribueras i ett Kubernetes-kluster med hjälp av FluxCD.
 
-## Available Scripts
+## Funktioner
+- Visa aktuellt väder och temperatur för användarens plats via geolokalisering.
+- Möjlighet att söka väder på valfri plats.
+- Rekommendationer för klädsel och aktiviteter baserat på vädret (via OpenAI API).
+- Dynamiska bakgrunder som ändras efter vädret.
+- CI/CD-pipeline för att automatisera bygg och driftsättning.
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## Systemkrav
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Lokalt utvecklingsmiljö:
+- Node.js (minst v14)
+- Docker (minst v20.10)
+- Kubernetes (minst v1.25) med kubectl installerat
+- FluxCD CLI (minst v2.0.0)
+- En GitHub Personal Access Token (PAT) med admin-rättigheter
+- OpenWeather API-nyckel
+- OpenAI API-nyckel
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Deployment:
+- Ett Google Kubernetes Engine (GKE) kluster eller annan kompatibel Kubernetes-miljö.
+- GitHub Actions konfigurerat för CI.
+- GitHub Container Registry (GHCR) för lagring av Docker-images.
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation och användning
 
-### `yarn build`
+### 1. Klona repot
+```bash
+git clone https://github.com/hejweather/hejweather.git
+cd hejweather
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Skapa en `.env`-fil
+Lägg till dina API-nycklar i en `.env`-fil i projektmappen:
+```env
+REACT_APP_WEATHER_API_KEY=<din_openweather_api_nyckel>
+REACT_APP_CHATGPT_API_KEY=<din_openai_api_nyckel>
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Bygg och kör lokalt
+1. Bygg och kör applikationen lokalt:
+   ```bash
+   npm install
+   npm start
+   ```
+2. Besök applikationen på `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+## Deployment i Kubernetes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Skapa Docker-image
+Bygg och push Docker-image till GitHub Container Registry:
+```bash
+docker build -t ghcr.io/<dittrepo/dinapp>:latest .
+docker push ghcr.io/<dittrepo/dinapp>:latest
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Skapa Kubernetes-manifester
+Använd filerna i mappen `cluster/` för att konfigurera deployment och service:
+- `kustomization.yaml`
+- `deployment.yaml`
+- `service.yaml`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Installera FluxCD
+Bootstrap FluxCD i ditt kluster:
+```bash
+flux bootstrap github \
+  --owner=<your-org> \
+  --repository=<your-repo> \
+  --branch=main \
+  --path=./cluster \
+  --personal
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Synkronisera och verifiera
+Verifiera att Flux har synkroniserat konfigurationen:
+```bash
+kubectl get pods -n flux-system
+kubectl get services -n default
+```
+Testa sedan applikationen genom att besöka IP-adressen för din LoadBalancer.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## CI/CD Pipeline
+Projektet använder GitHub Actions för CI och FluxCD för CD:
+1. Push av kod till `main`-branchen triggar en GitHub Actions workflow som:
+   - Bygger en ny Docker-image.
+   - Pushar imagen till GitHub Container Registry (GHCR).
+2. FluxCD övervakar repot för ändringar och uppdaterar Kubernetes-klustret med nya deployment-konfigurationer.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Verktyg och teknologier
+- **Frontend:** React, JavaScript
+- **API:** OpenWeather, OpenAI
+- **Containerisering:** Docker
+- **Orkestrering:** Kubernetes
+- **CI/CD:** GitHub Actions, FluxCD
+- **Registry:** GitHub Container Registry (GHCR)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Felsökning
+1. **Fel vid bygg av Docker-image:**
+   - Kontrollera att `.env`-variablerna är korrekt inställda.
+   - Kontrollera Docker-versionen och rättigheter.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. **Applikationen laddar inte i Kubernetes:**
+   - Verifiera att FluxCD är korrekt installerat med `kubectl get pods -n flux-system`.
+   - Kontrollera att LoadBalancer-adressen är korrekt i Kubernetes.
 
-### Making a Progressive Web App
+3. **Problem med API-anrop:**
+   - Kontrollera att OpenWeather och OpenAI-nycklarna är giltiga och rätt konfigurerade.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Kontakt och bidrag
+Vi välkomnar förslag och bidrag till projektet. Skicka en pull request eller kontakta oss via [GitHub Issues](https://github.com/hejweather/hejweather/issues) för att rapportera buggar eller diskutera förbättringar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
